@@ -3,7 +3,7 @@
 A simple web application to help small business owners and beginners calculate ingredient costs and product production costs without a backend or database.
 
 Live Demo:  
-https://cost-tracking-5vn78852y-boboiboyapi01s-projects.vercel.app/
+https://cost-tracking-app.vercel.app/
 
 ---
 
