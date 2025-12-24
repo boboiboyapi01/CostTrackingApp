@@ -49,6 +49,7 @@ export function IngredientMaster({
     if (editingId) {
       onUpdateIngredient(editingId, ingredientData);
       setEditingId(null);
+      setIsAdding(false);
     } else {
       onAddIngredient(ingredientData);
       setIsAdding(false);
