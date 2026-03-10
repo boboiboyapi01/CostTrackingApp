@@ -46,7 +46,7 @@ export function ProductForm({
   const handleIngredientChange = (
     index: number,
     field: keyof ProductIngredient,
-    value: string | number
+    value: string | number,
   ) => {
     const updated = [...productIngredients];
 
@@ -88,7 +88,7 @@ export function ProductForm({
 
     // Validate all ingredients have quantity > 0
     const invalidIngredients = productIngredients.filter(
-      (ing) => ing.quantity <= 0
+      (ing) => ing.quantity <= 0,
     );
     if (invalidIngredients.length > 0) {
       alert("Jumlah bahan harus lebih dari 0!");
@@ -109,7 +109,7 @@ export function ProductForm({
       const convertedQty = convertToBaseUnit(
         ing.quantity,
         ing.unit,
-        ingredient.unit
+        ingredient.unit,
       );
       const cost = convertedQty * ingredient.pricePerUnit;
       return total + cost;
@@ -119,31 +119,35 @@ export function ProductForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-6 bg-gradient-to-br from-green-50 to-blue-50 rounded-lg border-2 border-green-300 space-y-4"
+      className="p-6 bg-slate-700 rounded-lg border border-slate-600 space-y-4"
     >
-      <h3 className="font-medium text-lg">
+      <h3 className="font-medium text-lg text-slate-100">
         {product ? "Edit Produk" : "Tambah Produk Baru"}
       </h3>
 
       <div>
-        <label className="block mb-1">Nama Produk</label>
+        <label className="block mb-1 text-slate-200 font-medium">
+          Nama Produk
+        </label>
         <input
           type="text"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
           placeholder="Contoh: Kue Brownies"
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-full px-3 py-2 bg-slate-600 border border-slate-500 text-slate-100 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           required
         />
       </div>
 
       <div>
         <div className="flex items-center justify-between mb-2">
-          <label className="block">Bahan yang Digunakan</label>
+          <label className="block text-slate-200 font-medium">
+            Bahan yang Digunakan
+          </label>
           <button
             type="button"
             onClick={handleAddIngredient}
-            className="flex items-center gap-1 px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            className="flex items-center gap-1 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm shadow-md"
           >
             <Plus size={16} />
             Tambah Bahan
@@ -151,8 +155,8 @@ export function ProductForm({
         </div>
 
         {productIngredients.length === 0 ? (
-          <div className="text-center py-8 bg-white rounded-lg border-2 border-dashed border-gray-300">
-            <p className="text-gray-500 text-sm">
+          <div className="text-center py-8 bg-slate-600 rounded-lg border border-dashed border-slate-500">
+            <p className="text-slate-400 text-sm">
               Belum ada bahan yang ditambahkan
             </p>
           </div>
@@ -160,7 +164,7 @@ export function ProductForm({
           <div className="space-y-3">
             {productIngredients.map((ing, index) => {
               const ingredient = ingredients.find(
-                (i) => i.id === ing.ingredientId
+                (i) => i.id === ing.ingredientId,
               );
               const convertedQty = ingredient
                 ? convertToBaseUnit(ing.quantity, ing.unit, ingredient.unit)
@@ -172,7 +176,7 @@ export function ProductForm({
               return (
                 <div
                   key={index}
-                  className="p-3 bg-white rounded-lg border space-y-2"
+                  className="p-3 bg-slate-600 rounded-lg border border-slate-500 space-y-2"
                 >
                   <div className="flex gap-2">
                     <select
@@ -181,10 +185,10 @@ export function ProductForm({
                         handleIngredientChange(
                           index,
                           "ingredientId",
-                          e.target.value
+                          e.target.value,
                         )
                       }
-                      className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="flex-1 px-3 py-2 bg-slate-500 border border-slate-400 text-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       {ingredients.map((ingredient) => (
                         <option key={ingredient.id} value={ingredient.id}>
@@ -196,7 +200,7 @@ export function ProductForm({
                     <button
                       type="button"
                       onClick={() => handleRemoveIngredient(index)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      className="p-2 text-red-400 hover:bg-slate-700 rounded-lg transition-colors"
                     >
                       <Trash2 size={18} />
                     </button>
@@ -204,7 +208,9 @@ export function ProductForm({
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-sm mb-1">Jumlah</label>
+                      <label className="block text-sm mb-1 text-slate-300">
+                        Jumlah
+                      </label>
                       <input
                         type="number"
                         value={ing.quantity || ""}
@@ -212,23 +218,25 @@ export function ProductForm({
                           handleIngredientChange(
                             index,
                             "quantity",
-                            parseFloat(e.target.value) || 0
+                            parseFloat(e.target.value) || 0,
                           )
                         }
                         placeholder="100"
                         step="0.01"
-                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        className="w-full px-3 py-2 bg-slate-500 border border-slate-400 text-slate-100 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm mb-1">Satuan</label>
+                      <label className="block text-sm mb-1 text-slate-300">
+                        Satuan
+                      </label>
                       <select
                         value={ing.unit}
                         onChange={(e) =>
                           handleIngredientChange(index, "unit", e.target.value)
                         }
-                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        className="w-full px-3 py-2 bg-slate-500 border border-slate-400 text-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       >
                         {UNITS.map((unit) => (
                           <option key={unit} value={unit}>
@@ -240,10 +248,10 @@ export function ProductForm({
                   </div>
 
                   {ing.quantity > 0 && ingredient && (
-                    <div className="text-sm bg-green-50 p-2 rounded border border-green-200">
-                      <p className="text-gray-700">
+                    <div className="text-sm bg-slate-500/50 p-2 rounded border border-slate-400">
+                      <p className="text-slate-300">
                         Estimasi biaya:{" "}
-                        <span className="font-medium text-green-700">
+                        <span className="font-medium text-emerald-400">
                           Rp {cost.toLocaleString("id-ID")}
                         </span>
                       </p>
@@ -257,10 +265,10 @@ export function ProductForm({
       </div>
 
       {productIngredients.length > 0 && (
-        <div className="p-4 bg-green-100 rounded-lg border-2 border-green-400">
-          <p className="font-medium">
+        <div className="p-4 bg-gradient-to-r from-blue-900/40 to-emerald-900/40 rounded-lg border border-blue-700/50">
+          <p className="font-medium text-slate-200">
             Total Estimasi Modal:{" "}
-            <span className="text-lg text-green-700">
+            <span className="text-lg text-emerald-400 font-semibold">
               Rp {calculateEstimatedCost().toLocaleString("id-ID")}
             </span>
           </p>
@@ -271,14 +279,14 @@ export function ProductForm({
         <button
           type="button"
           onClick={onCancel}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-slate-600 hover:bg-slate-500 text-slate-100 rounded-lg transition-colors"
         >
           <X size={18} />
           Batal
         </button>
         <button
           type="submit"
-          className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors shadow-lg hover:shadow-xl"
         >
           <Check size={18} />
           {product ? "Update Produk" : "Simpan Produk"}
@@ -292,7 +300,7 @@ export function ProductForm({
 function convertToBaseUnit(
   quantity: number,
   fromUnit: string,
-  toUnit: string
+  toUnit: string,
 ): number {
   const weightConversions: { [key: string]: number } = {
     gram: 1,
